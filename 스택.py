@@ -9,32 +9,30 @@
 # 정수는 1보다 크거나 같고, 100,000보다 작거나 같다.
 
 import sys 
-n =  int(sys.stdin.readline().rstrip())
+n = sys.stdin.readline
+
 stack= []
-
 for i in range(n):
-    if input=="push(x)":
-        stack.append(i) 
+    command = sys.stdin.readline().split() 
 
-    elif input=="top" :
-        if stack > 0 :
-            print (stack[-1])
+    if command[0] =='push':
+        stack.append(command[1]) 
+
+    elif command[0]=='top' :
+        if len(stack) == 0 :
+            print (-1)
         else: 
-            print(-1)     
-    elif input=="size":
-        print(stack.pop())
+            print(stack[-1])     
+    elif command[0]=='size':
+        print(len(stack))
 
-    elif input == "empty":
-        if stack > 0 :
+    elif command[0] == 'empty':
+        if len(stack) == 0 :
             print (1)
         else:
             print (0)
-    else: 
-        if not stack:
+    elif command[0] == 'pop': 
+        if len(stack) == 0:
             print (-1)
-        else:
-            stack.pop()
-            print(stack.pop())    
-      
-print(stack)                                    
-
+        else: 
+            print(stack.pop())
