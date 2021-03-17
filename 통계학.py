@@ -9,24 +9,22 @@
 # 중앙값을 출력
 #최빈값을 출력한다. 여러 개 있을 때에는 최빈값 중 두 번째로 작은 값을 출력
 #범위를 출력
+# 
 
 import sys
-input = sys.stdin.readline
+from collections import Counter
 
-n = int(input())
-v = sorted([int(input()) for _ in range(n)])
+input =sys.stdin.readline
+n = int(sys.stdin.readline())
+data = [int(sys.stdin.readline()) for _ in range(n)]
+data.sort()
 
-def average(n): #평균
-    return round(sum((v)/len(n)))
+count = Counter(data).most_common() 
+if len(count) > 1 and count[0][1] == count[1][1]:
+    print(count[1][0])
+else:
+    print(count[0][0])
 
-def median(n): #중앙값 
-    if (n % 2) == 0:
-        return (v + 1)/2
-    else: sum((( v / 2 ) + ((v / 2) + 1))/2)
-
-def area(v): #범위 
-    return (v[-1] - v[0])
-
-print (average(v))
-print (median(v))
-print (area(v))
+print(round (sum(data) / n) ) #평균 
+print(data[n // 2]) #중앙값
+print((data[-1]) - data[0]) #범위 
