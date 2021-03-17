@@ -1,10 +1,12 @@
 
 import sys 
-n = int(input())
+input = sys.stdin.readline
 
+
+n= int(input())
 queue= []
 for i in range(n):
-    command = sys.stdin.readline().split() 
+    command = list(map(str, sys.stdin.readline().split()))
 
     if command[0] =='push':
         queue.append(command[1]) 
@@ -13,7 +15,7 @@ for i in range(n):
         if len(queue) == 0 :
             print(-1)
         else:
-            print(len(queue[0]))  
+            print(queue[0])  
     elif command[0]=='size':
         print(len(queue))
 
@@ -26,7 +28,7 @@ for i in range(n):
         if len(queue) == 0:
             print (-1)
         else: 
-            print(queue.popleft())
+            print(queue.pop(0))
     elif command[0] == 'back' :
         if len(queue) == 0 :
             print(-1)
