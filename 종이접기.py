@@ -1,29 +1,27 @@
 import sys
+input = sys.stdin.readline
+n = int(input())
+B = [list(map(int, input().split())) for _ in range(n)]
+w_cnt, b_cnt = 0, 0
 
-N = int(sys.stdin.readline())
-paper = [list(map(int, sys.stdin.readline().split())) for _ in range(N)] 
+def div_conq(x, y, N):
+    global w_cnt, b_cnt
+    tmp_cnt = 0
+    for i in range(x, x + N):
+        for j in range(y, y + N):
+            if B[i][j]:
+                tmp_cnt += 1
+    if not tmp_cnt:
+        w_cnt += 1
+    elif tmp_cnt == N**2:
+        b_cnt += 1
+    else:
+        div_conq(x, y, N // 2)
+        div_conq(x + N // 2, y, N // 2)
+        div_conq(x, y + N // 2, N // 2)
+        div_conq(x + N // 2, y + N // 2, N // 2)
+    return
 
-result = []
-
-def solution(x, y, N) :
-  color = paper[x][y]
-  for i in range(x, x+N) :
-    for j in range(y, y+N) :
-      if color != paper[i][j] :
-        solution(x, y, N//2)
-        solution(x, y+N//2, N//2)
-        solution(x+N//2, y, N//2)
-        solution(x+N//2, y+N//2, N//2)
-        return
-  if color == 0 :
-    result.append(0)
-  else :
-    result.append(1)
-
-
-solution(0,0,N)
-print(result.count(0))
-print(result.count(1))
-
-
-#https://happylsm76.tistory.com/entry/%EB%B0%B1%EC%A4%80-2630%EB%B2%88%EC%83%89%EC%A2%85%EC%9D%B4-%EB%A7%8C%EB%93%A4%EA%B8%B0-with-Python
+div_conq(0, 0, n)
+print(w_cnt)
+print(b_cnt)
